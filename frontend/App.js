@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Camera } from "expo-camera";
 console.log(Camera.Constants);
+console.log(Camera.Constants);
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
