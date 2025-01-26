@@ -9,9 +9,9 @@ import {
   TextInput,
   Image,
 } from "react-native";
-import { Camera } from "expo-camera";
-console.log(Camera.Constants);
-console.log(Camera.Constants);
+import { Camera, CameraType } from "expo-camera";
+console.log("Camera Object:", Camera);
+console.log("Camera.Constants:", CameraType.Constants);
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -19,6 +19,7 @@ export default function App() {
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [language, setLanguage] = useState("en");
   const [photo, setPhoto] = useState(null);
+  const [type, setType] = useState(CameraType.Constants);
 
   useEffect(() => {
     (async () => {
@@ -50,7 +51,7 @@ export default function App() {
       {isCameraOpen ? (
         <Camera
           style={styles.camera}
-          type={"Camera.Constants.Type.back"}
+          type={Camera}
           ref={(ref) => setCameraRef(ref)}
         >
           <View style={styles.cameraControls}>
