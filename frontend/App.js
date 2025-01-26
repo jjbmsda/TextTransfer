@@ -51,7 +51,7 @@ export default function App() {
     formData.append("language", language);
 
     try {
-      const response = await fetch("http://192.168.0.10:5000/translate", {
+      const response = await fetch("http://192.168.1.49:5000/translate", {
         // 백엔드 서버 URL 입력
         method: "POST",
         headers: {
