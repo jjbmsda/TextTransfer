@@ -7,7 +7,7 @@ A simple mobile application that allows users to capture an image, extract text 
 
 - **Capture Image**: Take a photo directly within the app.
 - **Text Extraction**: Extract text from images using Google Cloud Vision API.
-- **Translation**: Translate extracted text to a specified language using [DeepL API](https://www.deepl.com/) or other translation services.
+- **Translation**: Translate extracted text to a specified language using Google Translate API or other translation services.
 - **Reset Functionality**: Refresh the app to its initial state for new translations.
 - **User-Friendly Interface**: Designed with a clean UI for seamless interaction.
 
@@ -16,7 +16,7 @@ A simple mobile application that allows users to capture an image, extract text 
 ### Backend
 - Flask
 - Google Cloud Vision API
-- DeepL API (or an alternative translation API)
+- Google Translate API
 
 ### Frontend
 - React Native
