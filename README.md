@@ -11,11 +11,6 @@ A simple mobile application that allows users to capture an image, extract text 
 - **Reset Functionality**: Refresh the app to its initial state for new translations.
 - **User-Friendly Interface**: Designed with a clean UI for seamless interaction.
 
-## Screenshots
-
-### Main Screen
-<img src="your-screenshot-url" alt="Main Screen" width="300" />
-
 ## Requirements
 
 ### Backend
