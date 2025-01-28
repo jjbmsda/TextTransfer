@@ -30,7 +30,7 @@ A simple mobile application that allows users to capture an image, extract text 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/text-translation-app.git
+   git clone https://github.com/jjbmsda/TextTransfer.git
    cd text-translation-app/backend
    ```
 
