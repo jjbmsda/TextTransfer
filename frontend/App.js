@@ -7,7 +7,7 @@ import {
   TextInput,
   Image,
   Alert,
-  ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
@@ -15,13 +15,19 @@ export default function App() {
   const [language, setLanguage] = useState("en"); // 번역할 언어 설정
   const [photo, setPhoto] = useState(null); // 촬영된 이미지 URI
   const [translation, setTranslation] = useState(""); // 번역 결과
-  const [loading, setLoading] = useState(false); // 로딩 상태
+
+  // 상태 초기화 함수
+  const resetState = () => {
+    setLanguage("en"); // 초기 언어 설정
+    setPhoto(null); // 이미지 초기화
+    setTranslation(""); // 번역 결과 초기화
+  };
 
   // 사진 촬영
   const takePhoto = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
     if (status !== "granted") {
-      Alert.alert("권한 필요", "카메라 접근 권한을 허용해주세요.");
+      Alert.alert("오류", "카메라 접근 권한이 필요합니다.");
       return;
     }
 
@@ -44,8 +50,6 @@ export default function App() {
       return;
     }
 
-    setLoading(true); // 로딩 상태 시작
-
     const formData = new FormData();
     formData.append("image", {
       uri: photo,
@@ -56,6 +60,7 @@ export default function App() {
 
     try {
       const response = await fetch("http://192.168.1.49:5000/translate", {
+        // 백엔드 서버 URL 입력
         method: "POST",
         headers: {
           "Content-Type": "multipart/form-data",
@@ -71,73 +76,83 @@ export default function App() {
       }
     } catch (error) {
       Alert.alert("오류", "번역 서버에 연결할 수 없습니다.");
-    } finally {
-      setLoading(false); // 로딩 상태 종료
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>텍스트 번역기</Text>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>번역 앱</Text>
       <TextInput
         style={styles.input}
-        placeholder="번역할 언어 코드 입력 (예: en)"
+        placeholder="언어 코드 (예: en)"
         value={language}
         onChangeText={setLanguage}
       />
       <View style={styles.buttonContainer}>
-        <Button title="사진 촬영" onPress={takePhoto} color="#007AFF" />
+        <Button title="사진 촬영" onPress={takePhoto} color="#007BFF" />
         <Button title="번역 요청" onPress={handleTranslation} color="#28A745" />
       </View>
-      {loading && <ActivityIndicator size="large" color="#007AFF" />}
       {photo && <Image source={{ uri: photo }} style={styles.image} />}
       {translation && (
-        <Text style={styles.translation}>번역 결과: {translation}</Text>
+        <View style={styles.translationContainer}>
+          <Text style={styles.translation}>{translation}</Text>
+        </View>
       )}
-    </View>
+      <Button title="새로고침" color="#DC3545" onPress={resetState} />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F8F9FA",
+    backgroundColor: "#FFFFFF", // 흰색 배경
     padding: 20,
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
+    color: "#333333",
     marginBottom: 20,
-    color: "#333",
   },
   input: {
     borderWidth: 1,
-    borderColor: "#CCC",
+    borderColor: "#CCCCCC",
     padding: 10,
-    width: "90%",
+    width: "80%",
     marginBottom: 20,
-    borderRadius: 8,
-    backgroundColor: "#FFF",
+    borderRadius: 5,
+    backgroundColor: "#F9F9F9", // 밝은 배경
+    color: "#333333", // 어두운 텍스트 색상
   },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "90%",
+    width: "80%",
     marginBottom: 20,
   },
   image: {
     width: 300,
     height: 300,
     marginTop: 20,
-    borderRadius: 8,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#CCCCCC",
+  },
+  translationContainer: {
+    marginTop: 20,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#CCCCCC",
+    borderRadius: 5,
+    backgroundColor: "#F9F9F9", // 밝은 배경
+    width: "90%",
   },
   translation: {
-    marginTop: 20,
     fontSize: 16,
-    color: "#28A745",
-    fontWeight: "bold",
+    color: "#28A745", // 초록색 텍스트
     textAlign: "center",
   },
 });
