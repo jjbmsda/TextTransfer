@@ -147,7 +147,7 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 ## Contact
 
-For any questions or issues, feel free to reach out:
+For any questions or issues, feel free to reach out. :
 
 - **Email**: jjbmsda@gmail.com
 - **GitHub**: [jjbmsda](https://github.com/jjbmsda)
